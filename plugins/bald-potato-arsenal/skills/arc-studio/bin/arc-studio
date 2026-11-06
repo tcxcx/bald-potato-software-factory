@@ -1,0 +1,13 @@
+#!/bin/sh
+set -e
+
+target=$0
+while [ -L "$target" ]; do
+  link=$(readlink "$target")
+  case $link in
+    /*) target=$link ;;
+    *) target=$(dirname "$target")/$link ;;
+  esac
+done
+
+exec node "$(dirname "$target")/arc-studio.mjs" "$@"

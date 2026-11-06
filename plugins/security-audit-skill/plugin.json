@@ -1,0 +1,14 @@
+{
+  "name": "security-audit-skill",
+  "displayName": "Cloudflare Security Audit Skill",
+  "version": "1.0.0",
+  "description": "Cloudflare's 6-phase security audit and vulnerability discovery harness skill: reconnaissance, coverage-led hunting, adversarial candidate validation, structured findings, independent verification, and target-neutral reporting.",
+  "author": {
+    "name": "Cloudflare Security AI Research",
+    "url": "https://github.com/cloudflare/security-audit-skill"
+  },
+  "homepage": "https://github.com/cloudflare/security-audit-skill",
+  "repository": "https://github.com/cloudflare/security-audit-skill",
+  "license": "MIT",
+  "logo": "assets/logo.svg"
+}

@@ -1,0 +1,11 @@
+{
+  "bald-potato-preload": {
+    "SessionStart": [
+      {
+        "type": "command",
+        "command": "./scripts/bald-potato-session-start.sh",
+        "timeout": 5
+      }
+    ]
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "name": "arc-studio",
+  "description": "Delegate onchain work (smart contracts, USDC, onchain apps) to Circle's hosted Arc Studio agent.",
+  "version": "1.2.2",
+  "author": {
+    "name": "Circle"
+  }
+}
