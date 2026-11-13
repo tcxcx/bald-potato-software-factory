@@ -1,4 +1,4 @@
-# Matt Pocock Skills + Bald Potato Software Factory — Always-On Rule for Antigravity
+# Matt Pocock Skills + Bald Potato Software Factory. Always-On Rule for Antigravity
 
 You MUST always preload and operate with **Matt Pocock's Engineering, Productivity, and Software Factory skills (`mattpocock-skills@4ae2317`)** alongside **Poteto Mode (`pstack`)** as a unified **Bald Potato Software Factory**.
 
@@ -20,7 +20,7 @@ When designing, building, or running a software factory (a system of agents turn
   - **Orchestrator** (avoid: *dispatcher, scheduler, control plane*)
   - **Observability platform** (avoid: *observability, logs, monitoring, dashboard*)
 - **Three Brakes on Every Accelerator**:
-  1. **Automated checks**: Deterministic gates (types, lint, tests) that every run must pass.
+  1. **Automated checks & Final-Instance QA Gate**: Deterministic gates (types, lint, tests) plus the `petrkindlmann/qa-skills` Final-Instance QA Gate (`/Users/daniss/.gemini/config/plugins/pstack/skills/poteto-mode/references/qa-gate.md`: `qa.mjs plan/run`, 1 to 2 precision domain QA skills, `ai-qa-review` test-smell & broken-control audit, 2-attempt repair cap, and `agent-result-gate.mjs` independent oracle on autonomous runs) that every run must pass.
   2. **Automated review**: Separate cold review of the diff against codebase standards and the ticket (`/code-review` + `/interrogate`).
   3. **Human review**: Human reads the PR before merge; catches become new automated checks and sharper automated review (`/retro` + `/correct`).
 
@@ -40,8 +40,8 @@ Combine Matt Pocock's flow (`/Users/daniss/.gemini/config/plugins/mattpocock-ski
 5. **Build via Red-Green-Refactor at Seams (`/implement`, `/implement-spec`, `/tdd`)**:
    - Drive `/tdd` (`/Users/daniss/.gemini/config/plugins/mattpocock-skills/skills/tdd/SKILL.md`) one vertical slice at a time at pre-agreed public seams. Never write horizontal bulk tests or implementation-coupled mocks.
    - For parallel ticket graphs, `/implement-spec` runs implementer subagents (`invoke_subagent`) across the ready frontier on an integration branch.
-6. **Two-Axis Review + Adversarial Verification (`/code-review`, `/interrogate`, `/no-comments`, `/pr`)**:
-   - Run `/code-review` across two independent subagent axes (**Standards** + **Spec**), strip unnecessary comments (`/no-comments`), prove behavior against the real artifact, and shape PRs with visual summaries, before/after evidence, and one-way/two-way door blast-radius calls (`/pr`).
+6. **Two-Axis Review + Adversarial Verification + Final-Instance QA Gate (`/code-review`, `/interrogate`, `/no-comments`, `qa-skills`, `/pr`)**:
+   - Run `/code-review` across two independent subagent axes (**Standards** + **Spec**), strip unnecessary comments (`/no-comments`), run the **Final-Instance QA Gate** (`/Users/daniss/.gemini/config/plugins/pstack/skills/poteto-mode/references/qa-gate.md` via `petrkindlmann/qa-skills`: `qa.mjs plan/run`, 1 to 2 precision domain skills, `ai-qa-review`, and passed/failed/skipped/blocked/unrun accounting), prove behavior against the real artifact, and shape PRs with visual summaries, before/after evidence, and one-way/two-way door blast-radius calls (`/pr`).
 7. **Diagnose & Ratchet the Environment (`/diagnosing-bugs`, `/retro`, `/correct`)**:
    - For bugs, `/diagnosing-bugs` establishes a tight red feedback loop before hypothesizing or instrumenting.
    - Close out sessions with `/retro` and `/correct` to turn mistakes into deterministic checks, types, lint rules, and steering docs.

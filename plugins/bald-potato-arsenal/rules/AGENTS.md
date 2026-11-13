@@ -1,4 +1,4 @@
-# Bald Potato Arsenal — Domain, UI/UX, Motion, Vercel, Cloud & Behavioral Skills
+# Bald Potato Arsenal. Domain, UI/UX, Motion, Vercel, Cloud & Behavioral Skills
 
 All Arsenal skills live at `/Users/daniss/.gemini/config/plugins/bald-potato-arsenal/skills/<name>/SKILL.md` and `/Users/daniss/.agents/skills/<name>/SKILL.md`. They are available via `/<name>` slash commands and model auto-invocation:
 
@@ -9,4 +9,9 @@ All Arsenal skills live at `/Users/daniss/.gemini/config/plugins/bald-potato-ars
 - **Vercel Official Ecosystem**: `find-skills`, `ai-sdk`, `next-best-practices`, `next-cache-components`, `next-upgrade`, `turborepo`, `vercel-cli`, `deploy-to-vercel`, `vercel-react-best-practices`, `vercel-composition-patterns`, `ai-elements`, `json-render-core`, `json-render-react`, `agent-browser`, `workflow`, `chat-sdk`, `streamdown`, `flags-sdk`, `vercel-sandbox`, `portless`, `opensrc`
 - **Backend, Cloud, Scraping & Agent Tooling**: `supabase` (+ `supabase-postgres-best-practices`), `google-agents-cli-adk-code`, `firecrawl` (+ all Firecrawl skills), `ponytail` (+ `ponytail-audit`, `ponytail-review`, `ponytail-debt`, `ponytail-gain`), `brag`, `brag-slim`
 - **Marketing & Growth (`marketingskills`)**: `programmatic-seo`, `copywriting`, `page-cro`, `seo-audit`, `launch-strategy`, `pricing-strategy`, `analytics-tracking` (+ full marketing suite)
+- **Uniswap Trading API, UniswapX & Permissioned RWA Pools (`uniswap/uniswap-ai`)**: `swap-integration`, `permissioned-pools-issuer`, `permissioned-pools-configurator`, `permissioned-pools-deployer`, `lp-integration`, `v4-sdk-integration`, `v4-hook-generator`, `v4-security-foundations`, `pay-with-any-token`
 - **Superpowers (`obra/superpowers`)**: `test-driven-development`, `systematic-debugging`, `brainstorming`, `writing-plans`, `executing-plans`, `subagent-driven-development`, `verification-before-completion`
+- **QA & Verification Engineering (`petrkindlmann/qa-skills` + `~/.gemini/config/plugins/qa-skills/scripts/qa.mjs`)**:
+  - **Foundation & Strategy**: `qa-start`, `qa-do`, `qa-project-context`, `qa-project-bootstrap`, `test-strategy`, `test-planning`, `risk-based-testing`, `exploratory-testing`
+  - **Automation & Specialized**: `playwright-automation`, `agentic-browser-testing`, `cypress-automation`, `api-testing`, `unit-testing`, `mobile-testing`, `visual-testing`, `accessibility-testing`, `payment-testing`, `email-testing`, `analytics-tracking-testing`, `performance-testing`, `cross-browser-testing`, `database-testing`, `security-testing`, `selector-drift-recovery`
+  - **AI-QA, Infra, Metrics & Process**: `ai-system-testing`, `ai-qa-review`, `ai-test-generation`, `ai-bug-triage`, `bug-reproduction`, `test-reliability`, `ci-cd-integration`, `test-environments`, `test-data-management`, `contract-testing`, `service-virtualization`, `qa-metrics`, `qa-dashboard`, `coverage-analysis`, `shift-left-testing`, `release-readiness`, `quality-postmortem`, `compliance-testing`, `qa-report-humanizer`, `test-case-management`, `test-suite-curation`, `testing-in-production`, `synthetic-monitoring`, `observability-driven-testing`, `chaos-engineering`, `test-migration`

@@ -16,7 +16,7 @@ echo "Installing Bald Potato Software Factory + Arsenal into $TARGET_HOME..."
 # 1. Antigravity plugins (~/.gemini/config/plugins)
 PLUGINS_DIR="$TARGET_HOME/.gemini/config/plugins"
 mkdir -p "$PLUGINS_DIR"
-for p in pstack mattpocock-skills security-audit-skill bald-potato-arsenal; do
+for p in pstack mattpocock-skills security-audit-skill bald-potato-arsenal qa-skills; do
   rm -rf "$PLUGINS_DIR/$p"
   fast_copy_dir "$REPO_ROOT/plugins/$p" "$PLUGINS_DIR/$p"
   chmod +x "$PLUGINS_DIR/$p/hooks/"*.sh 2>/dev/null || true
@@ -79,7 +79,7 @@ if os.path.isfile(path):
     except Exception:
         data = {}
 ep = data.setdefault("enabledPlugins", {})
-for name in ["pstack", "mattpocock-skills", "security-audit-skill", "bald-potato-arsenal"]:
+for name in ["pstack", "mattpocock-skills", "security-audit-skill", "bald-potato-arsenal", "qa-skills"]:
     ep[name] = True
 with open(path, "w", encoding="utf-8") as f:
     json.dump(data, f, indent=2)

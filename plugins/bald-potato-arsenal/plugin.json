@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "bald-potato-arsenal",
-  "description": "Complete Bald Potato Arsenal: tcxcx behavioral analysis, animations.dev, Vercel official skills, HeyGen Hyperframes, Anthropics, Remotion, Brag, Google ADK, UI/UX Pro Max, Supabase, shadcn, Superpowers, Awwwards & Jury, Higgsfield, Marketing Skills, Firecrawl, and Ponytail.",
+  "description": "Complete Bald Potato Arsenal: petrkindlmann/qa-skills (50 QA skills), tcxcx behavioral analysis, animations.dev, Vercel official skills, HeyGen Hyperframes, Anthropics, Remotion, Brag, Google ADK, UI/UX Pro Max, Supabase, shadcn, Superpowers, Awwwards & Jury, Higgsfield, Marketing Skills, Firecrawl, and Ponytail.",
   "version": "1.0.0",
   "author": {
     "name": "Bald Potato Software Factory"
