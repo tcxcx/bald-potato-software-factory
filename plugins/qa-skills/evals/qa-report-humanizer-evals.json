@@ -1,0 +1,292 @@
+{
+  "skill": "qa-report-humanizer",
+  "version": "2.2",
+  "evals": [
+    {
+      "id": "qah-001",
+      "prompt": "Humanize a test execution summary that starts with 'Test execution was completed successfully for Sprint 47. A total of 342 test cases were executed across 5 test suites, achieving a 97.4% pass rate.'",
+      "expected_patterns": [
+        "342",
+        "5",
+        "97.4%",
+        "failure count OR breakdown OR not given OR not provided OR not specified",
+        "preserves the reported sprint and exact figures while identifying absent failure details"
+      ],
+      "anti_patterns": [
+        "9 failed",
+        "6 of the failures",
+        "3 are flaky",
+        "inventing failed suite names or causes absent from the source"
+      ],
+      "tags": [
+        "test-summary",
+        "template-removal",
+        "signal-boost"
+      ]
+    },
+    {
+      "id": "qah-002",
+      "prompt": "Fix a bug report that says: 'A critical defect was identified in the authentication module that could potentially impact the user experience across multiple touchpoints, underscoring the need for immediate remediation.'",
+      "expected_patterns": [
+        "critical",
+        "authentication",
+        "not specified OR not provided OR unknown OR missing",
+        "preserves reported severity without inventing behavior or user impact"
+      ],
+      "anti_patterns": [
+        "8%",
+        "plus-sign",
+        "inventing reproduction steps absent from the source"
+      ],
+      "tags": [
+        "bug-report",
+        "impact-clarity",
+        "specificity"
+      ],
+      "static": false
+    },
+    {
+      "id": "qah-003",
+      "prompt": "Humanize a stakeholder update that contains: 'Quality metrics continue to trend positively. The team is aligned on priorities and committed to delivering a high-quality release. Stakeholders can feel confident in the current trajectory.'",
+      "expected_patterns": [
+        "release OR readiness",
+        "not given OR not provided OR no test results OR missing OR no evidence",
+        "does not infer release approval or passing smoke tests from optimism"
+      ],
+      "anti_patterns": [
+        "4 bugs open",
+        "P2 or lower",
+        "smoke tests pass",
+        "inventing open bugs or a release decision"
+      ],
+      "tags": [
+        "stakeholder-update",
+        "vague-language",
+        "actionable-info"
+      ]
+    },
+    {
+      "id": "qah-004",
+      "prompt": "Rewrite a PR review comment from QA that says: 'Great work on this implementation! I noticed a few potential areas for improvement that might enhance the overall test coverage and robustness of the test suite.'",
+      "expected_patterns": [
+        "test OR scenario OR coverage",
+        "not identifying OR not specified OR without identifying OR missing OR which",
+        "names missing review evidence without asserting unseen code defects"
+      ],
+      "anti_patterns": [
+        "429",
+        ".btn-submit",
+        "getByRole",
+        "inventing details about code that was not provided"
+      ],
+      "tags": [
+        "pr-comment",
+        "test-specificity",
+        "actionable"
+      ]
+    },
+    {
+      "id": "qah-005",
+      "prompt": "Humanize a test summary with synonym cycling: 'The authentication tests passed successfully. The login verification suite completed without issues. The credential validation checks returned positive results. The sign-in workflow tests executed as expected.'",
+      "expected_patterns": [
+        "authentication OR auth",
+        "passed",
+        "login",
+        "credential",
+        "sign-in OR sign in",
+        "states the supplied outcomes concisely without adding coverage"
+      ],
+      "anti_patterns": [
+        "registration",
+        "password reset",
+        " SSO OR single sign-on",
+        "adding test coverage that the source never mentions"
+      ],
+      "tags": [
+        "synonym-cycling",
+        "concision",
+        "dedup"
+      ],
+      "static": false
+    },
+    {
+      "id": "qah-006",
+      "prompt": "Fix a QA report closer that says: 'Despite several challenges encountered during the testing phase, the team successfully completed all planned test activities. Moving forward, the focus will be on continuous improvement and enhanced test coverage.'",
+      "expected_patterns": [
+        "all planned",
+        "complete",
+        "not specified OR does not specify OR not provided OR missing",
+        "preserves reported completion without inventing skips or a schedule"
+      ],
+      "anti_patterns": [
+        "mobile browser",
+        "ran out of time",
+        "next sprint",
+        "turning a completed plan into invented unfinished work"
+      ],
+      "tags": [
+        "closer-rewrite",
+        "specificity",
+        "honest-gaps"
+      ]
+    },
+    {
+      "id": "qah-007",
+      "prompt": "Humanize a pass-rate report: 'The overall pass rate increased from 94.2% to 97.1%, demonstrating significant improvement in test suite reliability and showcasing the team's commitment to quality.'",
+      "expected_patterns": [
+        "94.2%",
+        "97.1%",
+        "cause OR reason OR which tests OR not given OR not provided",
+        "does not infer causes from a percentage change"
+      ],
+      "anti_patterns": [
+        "94%",
+        "97%",
+        "3 flaky",
+        "2 bugs",
+        "inventing causes or new defects absent from the source"
+      ],
+      "tags": [
+        "pass-rate",
+        "context",
+        "vanity-metrics"
+      ]
+    },
+    {
+      "id": "qah-008",
+      "prompt": "Rewrite a risk assessment: 'Several high-risk areas have been identified that require careful monitoring. The team recommends continued vigilance and proactive testing to mitigate potential issues.'",
+      "expected_patterns": [
+        "risk OR areas",
+        "not identify OR not specified OR not provided OR missing OR unnamed",
+        "asks for evidence before assigning a named risk or priority"
+      ],
+      "anti_patterns": [
+        "3D Secure",
+        "two production incidents",
+        "6 months",
+        "inventing named risk areas or historical incidents"
+      ],
+      "tags": [
+        "risk-language",
+        "specificity",
+        "prioritization"
+      ]
+    },
+    {
+      "id": "qah-009",
+      "prompt": "Humanize a bug report: 'While conducting comprehensive regression testing of the user management module, a significant defect was discovered that impacts the core functionality of the system. This issue has the potential to affect a substantial number of users.'",
+      "expected_patterns": [
+        "user management OR user-management",
+        "not specified OR not provided OR unknown OR missing",
+        "preserves uncertainty about behavior and affected users"
+      ],
+      "anti_patterns": [
+        "200 OK",
+        "401 Unauthorized",
+        "DELETE /api/users",
+        "API tokens",
+        "inventing reproduction steps or concrete impact without source evidence"
+      ],
+      "tags": [
+        "bug-padding",
+        "passive-voice",
+        "specificity"
+      ],
+      "static": false
+    },
+    {
+      "id": "qah-010",
+      "prompt": "Fix a sprint summary: 'This sprint we improved quality, velocity, and confidence. The team demonstrated strong collaboration, technical excellence, and customer focus.'",
+      "expected_patterns": [
+        "sprint",
+        "no specific OR not specified OR not provided OR no measurements OR no evidence",
+        "asks for actual work or measurements without supplying invented achievements"
+      ],
+      "anti_patterns": [
+        "12%",
+        "<1%",
+        "export feature",
+        "inventing completed changes or metrics absent from the source"
+      ],
+      "tags": [
+        "sprint-summary",
+        "rule-of-three",
+        "specificity"
+      ]
+    },
+    {
+      "id": "qah-011",
+      "prompt": "Humanize this bug report WITHOUT inventing numbers. The source gives no metrics: 'A defect was identified in the checkout flow that may affect users.' We do not know how many users are affected or how often it happens.",
+      "expected_patterns": [
+        "checkout",
+        "not measured OR unknown OR not quantified OR unmeasured",
+        "does not invent the unspecified broken behavior or frequency"
+      ],
+      "anti_patterns": [
+        "8%",
+        "12%",
+        "5%",
+        "two production incidents",
+        "inventing a reproduction or impact absent from the source"
+      ],
+      "tags": [
+        "anti-fabrication",
+        "fact-preservation",
+        "honest-gaps"
+      ]
+    },
+    {
+      "id": "qah-012",
+      "prompt": "Rewrite this for a Slack channel: 'Hello team, I wanted to share the results of our latest test execution. The E2E suite was run and the majority of tests passed with a few exceptions that are being investigated.' Full report link: https://ci.example.com/run/4821",
+      "expected_patterns": [
+        "E2E OR end-to-end",
+        "investigat",
+        "https://ci.example.com/run/4821",
+        "preserves that most tests passed with exceptions still under investigation"
+      ],
+      "anti_patterns": [
+        "2 flaky failures",
+        "known issue",
+        "declaring the complete run passed despite unresolved exceptions"
+      ],
+      "tags": [
+        "slack-message",
+        "channel-fit",
+        "concision"
+      ],
+      "static": false
+    },
+    {
+      "id": "qah-013",
+      "prompt": "Rewrite this for a release Slack channel, keeping the evidence: 'Candidate b46c02a was built on 2026-10-20 at 14:35 UTC. Candidate run: 217 passed, 8 skipped, 2 failed (tax-total.spec.ts, member-export.spec.ts); both failed the first retry, second retry not run. Prior commit a19de70 yesterday had 219 passed, 8 skipped, 0 failed. Tax rounding is a suspected cause, not confirmed. Mobile 390px screenshots have not been taken after the CSS change. Payments were not tested because the sandbox was unavailable. Release manager has not approved. We recommend reproducing the failures before release.'",
+      "expected_patterns": [
+        "b46c02a",
+        "a19de70",
+        "217",
+        "219",
+        "8",
+        "2",
+        "0",
+        "14:35",
+        "390px",
+        "tax-total.spec.ts",
+        "member-export.spec.ts",
+        "not approved OR has not approved",
+        "preserves which run belongs to which commit and the exact supplied date",
+        "preserves retries skips uncertainty and unrun mobile and payment checks"
+      ],
+      "anti_patterns": [
+        "fabricating a successful rerun or release approval",
+        "attributing the prior passing run to the current candidate",
+        "changing a suspected cause to a confirmed root cause"
+      ],
+      "tags": [
+        "fact-preservation",
+        "build-identity",
+        "uncertainty",
+        "held-out-style-case"
+      ],
+      "static": false
+    }
+  ]
+}

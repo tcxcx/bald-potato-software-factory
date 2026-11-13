@@ -1,0 +1,13 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "qa-skills",
+  "displayName": "QA Skills (Poteto & Bald Potato Final-Instance QA Gate)",
+  "version": "2.1.0",
+  "description": "Petr Kindlmann's 50 QA engineering skills, bounded qa.mjs runner, and independent agent-result-gate.mjs oracle integrated into Poteto Mode and Bald Potato Software Factory.",
+  "author": {
+    "name": "Petr Kindlmann",
+    "url": "https://github.com/petrkindlmann/qa-skills"
+  },
+  "repository": "https://github.com/petrkindlmann/qa-skills",
+  "license": "MIT"
+}

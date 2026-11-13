@@ -1,0 +1,67 @@
+[
+  {
+    "check": "structure",
+    "command": [
+      "python",
+      "scripts/validate_skills.py"
+    ],
+    "exit_code": 0,
+    "seconds": 0.515,
+    "log": "final-structure.log"
+  },
+  {
+    "check": "index",
+    "command": [
+      "python",
+      "scripts/build_index.py",
+      "--check"
+    ],
+    "exit_code": 0,
+    "seconds": 0.115,
+    "log": "final-index.log"
+  },
+  {
+    "check": "scanner",
+    "command": [
+      "python",
+      "skills/ai-system-testing/scripts/detect_injection.py",
+      "--selftest"
+    ],
+    "exit_code": 0,
+    "seconds": 0.064,
+    "log": "final-scanner.log"
+  },
+  {
+    "check": "static",
+    "command": [
+      "python",
+      "scripts/run_evals.py",
+      "--static",
+      "--all",
+      "--min-pass-rate",
+      "90",
+      "--json",
+      "docs/stress-test-2026-10-20/evidence/static-final.json"
+    ],
+    "exit_code": 0,
+    "seconds": 2.871,
+    "log": "final-static.log"
+  },
+  {
+    "check": "source-and-structured-artifact-whitespace",
+    "command": [
+      "git",
+      "diff",
+      "b3bb61bd268b147476252c6ed5a0440c87b97441",
+      "--check",
+      "--",
+      ".",
+      ":(exclude)docs/stress-test-2026-10-20/evidence/*.log",
+      ":(exclude)docs/stress-test-2026-10-20/evidence/*.txt"
+    ],
+    "exit_code": 0,
+    "seconds": 0.013,
+    "log": "final-whitespace.log",
+    "scope": "Raw .log and .txt process output excluded to preserve original bytes."
+  }
+]

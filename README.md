@@ -2,7 +2,7 @@
 
 Portable multi-agent installer for **Antigravity (`agy`)** 🚀, **Claude Code** 🤖, **Codex** 💻, **Cursor** ⚡, **OpenCode** 🛠️, and any Agentic Development Environment (ADE) 🌐.
 
-Bundles **493 skills** 📚, **4 Antigravity plugins** 🔌, **always-on rules (`AGENTS.md` and `CLAUDE.md`)** 📜, and the `--bald-potato-degen-mode` CLI wrapper 🔥 into one repository.
+Bundles **543 skills** 📚, **5 Antigravity plugins** 🔌, **always-on rules (`AGENTS.md` and `CLAUDE.md`)** 📜, and the `--bald-potato-degen-mode` CLI wrapper 🔥 into one repository.
 
 ## ⚡ Quick start
 
@@ -20,6 +20,7 @@ cd bald-potato-software-factory
    - 🥔 `pstack` (`poteto-mode`, 61 skills, `poteto-agent`, `comment-sicko`, always-on `AGENTS.md` rule)
    - 🧑‍🦲 `mattpocock-skills` (`4ae2317`, 44 skills including `bald-potato` and `bald-potato-degen-mode`, `bald-potato` agent, `SessionStart` preload hook, always-on `AGENTS.md` rule)
    - 🛡️ `security-audit-skill` (Cloudflare `security-audit` skill and boundary-first `AGENTS.md` rule)
+   - 🧪 `qa-skills` (`petrkindlmann/qa-skills`, 50 QA engineering skills, `qa.mjs` bounded runner, and `agent-result-gate.mjs` independent oracle wired as the Final-Instance QA Gate)
    - 🧰 `bald-potato-arsenal` (389 domain, motion, design, Vercel, video, cloud, behavioral, and marketing skills plus `AGENTS.md` index rule)
    - 🔥 Wraps `agy` so bare `agy`, `agy --bald-potato`, and `agy --bald-potato-degen-mode` always launch with `--dangerously-skip-permissions` and preload all four plugins.
 2. 🤖 **Claude Code (`~/.claude/skills/` and `~/.claude/CLAUDE.md`)**

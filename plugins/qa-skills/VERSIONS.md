@@ -1,0 +1,485 @@
+# Versions
+
+## v3.5.0 (2026-10-22)
+
+### Semantic judge, two more result adapters, ten more skills against software, a with-and-without comparison
+
+- Add `scripts/judge_evals.py`: a model judge for the 808 semantic eval criteria the
+  static checker defers, one call per skill, every "yes" verdict tied to a verbatim quote
+  found in the document or recorded as unverified. Three passes: 1,109 verdicts, none
+  unverified, 15 findings, which became 8 skill repairs and 7 re-phrased criteria; the
+  method, cost and findings are in [the judge report](docs/EVAL-JUDGE-2026-10-21.md).
+- Triage the 32 failing static eval cases to zero without loosening the gate: 511 of 511
+  checkable cases pass, 5 cases are live-only.
+- Add JUnit XML and CTRF JSON result adapters to the QA runner (`reporter: junit-xml |
+  ctrf-json` with `resultFile`), with a fresh-file rule, suite-counter reconciliation,
+  Surefire rerun and CTRF retry handling, evidence copies and report links; Vitest
+  discovery writes a JUnit file. Verified against real pytest 9.1.1 and Vitest 5.0.5
+  output. An odiff recipe joins visual-testing; the registry lists both adapters and odiff.
+- Campaign 3: ten skills that had never been run against software (visual-testing,
+  bug-reproduction, selector-drift-recovery, synthetic-monitoring,
+  analytics-tracking-testing, service-virtualization, test-migration,
+  test-suite-curation, test-data-management, chaos-engineering) each authored a suite
+  blind against the lab's Shop or TodoMVC. The controls matrix established 34 of 36 cases
+  (10 healthy controls, 24 designated-assertion detections); the two others are recorded as
+  suite limits. Six faults joined the lab (`redesign-classes`, `style-regression`,
+  `slow_health`, `wrong_currency_event`, `reset_email_dropped`, `catalog_currency_missing`),
+  TodoMVC faults stack, and the matrix accepts declared quarantines, re-designated oracles
+  and a per-case worker count. 93 recorded recipe difficulties became repairs in those ten
+  skills; `AGENTS.md` now treats an unfilled context template as absent. Report:
+  [campaign 3](docs/WORKFLOW-CAMPAIGN3-2026-10-21.md).
+- With-and-without comparison: one Shop task given to nine blind agents, three with four
+  skills, three with only the agent rules, three with neither, scored on nine pre-registered
+  faults and ten exploratory ones. All nine suites caught eight of the nine; only the skills
+  arm caught the ninth (a signature verified over re-serialized JSON) in every take, while on
+  the exploratory set it caught 15 of 30 against 16 and 18, missing two contract clauses
+  outside its skills' subjects. The scorer needs two healthy controls and a confirmed repeat
+  per detection, records wall-clock bounds, and runs a secondary set apart from the score.
+  Findings, the circularity of the primary set and other limits:
+  [with and without](docs/WITH-WITHOUT-2026-10-22.md).
+- Repairs from that comparison: `api-testing` asserts a 429 and its `retry-after`
+  unconditionally, falls back to an exact key-set check when no schema library may be
+  installed, and requires every contract clause to have a test or a "not covered" line;
+  `payment-testing` takes the bad-signature status from the provider or contract instead of
+  Stripe's 400; `email-testing` warns that a Mailpit delete with an empty ID list empties the
+  inbox and ships an executed per-ID cleanup helper; `playwright-automation` follows the
+  project's language and harness and uses exact labels where they share words.
+- The lab Shop's listen backlog is 128, so concurrent bursts are no longer reset on macOS.
+- Landing page proof strip replaced with measured GitHub figures and their date.
+- A second motion graphic, "Green isn't correct" (`docs/media/qa-skills-green-lies.gif`):
+  three passing suites over a shipping threshold, a copied-session logout and a layout shift
+  under the CLS budget. The storyboard in `docs/VIDEO-SCENARIOS.md` marks its cards as
+  illustrations of controlled local fixtures, and `scripts/render-green-lies.py` renders it.
+- The workflow config keeps `campaign3/` and `experiment/` out of the released set when it
+  runs the whole `generated/` tree. They had grown the CI gate's healthy count from 36 to
+  286 and failed it; they are scored by `run-matrix.mjs campaign3` and `run-experiment.mjs`.
+- The layout-shift addon reads its anchor from the buffered layout-shift record. It used to
+  read the entry field's first position after page load, and on a loaded host the injected
+  banner landed before that read, so the fault passed unseen. The check now catches the
+  fault whether the read comes early or late.
+- The Mailpit service chooses new ports when Mailpit cannot bind the ones it reserved. It
+  releases its reservations before Mailpit binds, and in CI a Mailpit start failed within
+  seconds, which voided `shop-plaintext-sessions` although its oracle had fired. Holding a
+  chosen port reproduces an exit of that shape; CI kept no log that could prove it was the
+  cause. The service now retries up to three times, never for a port the caller named, and
+  its errors quote Mailpit's own log. CI keeps every `service.log` with the evidence.
+
+Usage: [QA runner](docs/QA-RUNNER.md).
+
+## v3.4.0 (2026-10-21)
+
+### Executable QA routing and evidence reports
+
+- Add `qa plan`, `qa run`, and `qa init --wire-agent`: project discovery, goal/diff-based
+  skill selection, bounded test commands, application readiness/accessibility checks,
+  and standalone HTML/JSON reports with minimal and verbose logs.
+- Wire a bounded QA loop into project instructions on request. The host loads domain
+  skills, reproduces failures, makes authorized repairs, and reruns checks; the CLI
+  records observations without presenting model prose or an empty suite as a pass.
+- Add cumulative WCAG 2.1 rules, expected-page/readiness assertions, and a callable
+  known-gap accessibility scanner. Give hosted inbox requests client deadlines that
+  cover both headers and response bodies.
+- Require a designated failing matcher and per-run oracle evidence before counting
+  a fixture defect as detected. Stop fault runs after a failed healthy control.
+- Replace the agentic CI self-grade with a typed independent-oracle gate bound to
+  run, target, and build. Keep the external host adapter as an explicit prerequisite.
+- Honor `QA_PYTHON` through the shared npm launcher and service runtime. Repair stale
+  skill counts, links, and CI documentation; add executable QA runner controls to CI.
+- Add a reproducible eight-second motion-graphic renderer and three video storyboards.
+- Review pass before landing: the Playwright JSON adapter reads a report followed by a
+  package manager's failure line, discovery stops inserting `--` for pnpm, a goal that
+  only mentions a report still routes to an executing skill, a malformed result entry or
+  an unexpected throw no longer discards the evidence of earlier checks, environment
+  values are redacted only when they look like secrets, lockfiles are hashed by stream,
+  the browser worker publishes each phase and bounds the axe scan, and the matrix lock
+  and oracle helper fail safe. Verified on macOS arm64 as well as hosted Linux CI.
+
+Usage: [QA runner](docs/QA-RUNNER.md). Campaign evidence and limits:
+[delivery report](docs/QA-ORCHESTRATION-2026-10-21.md).
+
+## v3.3.0 (2026-10-21)
+
+### Addon workflows, macOS support and four skill repairs
+
+- Add eleven acceptance cases over the same real Shop, TodoMVC and Mailpit fixtures for
+  `accessibility-testing`, `database-testing`, `security-testing` and `performance-testing`:
+  axe scans of every reachable state with a documented upstream baseline, a keyboard-only
+  sign-in, hashed-at-rest and constraint checks read straight from SQLite, a failed-login
+  throttle driven by the fixture clock, locked support routes, uniform password reset under
+  a mail outage, and LCP/CLS lab budgets with an anchored entry field.
+- Add eight matching fixture faults (six Shop, two TodoMVC); the controls matrix now runs
+  23 variants and every designated assertion fails for its fault. The first CLS control
+  escaped at 0.07: a 240px jump of a compact app scores under the 0.1 budget, so the
+  recipe and the skill now anchor the key control as well as the score.
+- Pin a Mailpit asset per platform (Linux AMD64 and macOS arm64) with GitHub's published
+  digests, download over HTTPS only without curl, and resolve process identity through
+  `ps` where `/proc` is absent. The runtime launches `python3` by default (`QA_PYTHON`
+  overrides). The whole workflow suite now runs on an arm64 Mac as well as in CI.
+- Correct the axe-core install advice (pin the current exact release, not a stale minor),
+  fail an axe scan that evaluated nothing, and add throttle, locked-route and SQLite
+  at-rest recipes. The login throttle is documented in the Shop contract.
+
+Details: [addon report](docs/WORKFLOW-ADDONS-2026-10-21.md).
+
+## v3.2.0 (2026-10-21)
+
+### Application workflows and assertion sensitivity
+
+- Exercise pinned official TodoMVC, a real local HTTP/SQLite Shop, and checksum-pinned
+  Mailpit through Playwright Test. Retain fresh authoring, code review, review-driven
+  follow-up and deliberate-defect results as separate evidence.
+- Repair Playwright setup discovery and connect worker authentication to the builtin
+  page fixture. Replace an unsupported migration-command claim with installed-CLI checks.
+- Teach immediate persistence observations, independent session replay after logout,
+  independent unit-value checks, accepted boundaries and exact-byte signature success.
+- Keep backend data isolated per scenario, recipient cleanup scoped, service startup
+  and shutdown bounded, and normal output concise with detailed JSON/trace evidence.
+- Add an application-workflow CI job and repeatable healthy/defect controls. This is
+  bounded regression evidence, not a guarantee that every skill always works.
+
+Details and measured results: [workflow report](docs/REAL-WORKFLOWS-2026-10-21.md).
+
+## v3.1.0 (2026-10-21)
+
+### Stress tests and evidence-aware skill recipes
+
+The collection remains at 50 skills. This release adds regression tests that execute
+documented helpers, controlled browser fixtures, and retained evidence from the
+[stress-test review](docs/STRESS-TEST-2026-10-20.md).
+
+- Reject invalid YAML, duplicate keys, missing sections, broken references, malformed
+  evals, stale index contents and blank index versions with useful diagnostics.
+- Prevent absent specs, uncheckable criteria, blank model output and CLI failures from
+  becoming passing evaluations. Correct alternation parsing and retain deferred
+  semantic criteria. Static checks are explicitly content coverage.
+- Bound injection scanning work, preserve original source locations across supported
+  Unicode/escape normalization, and handle hostile filenames without shell expansion.
+- Repair consent observation, GA4 query/body parsing and typed tracking contracts;
+  preserve missing defaults, late requests, event duplicates and observation errors.
+- Repair email polling and extraction, transactional webhook handling, MSW handler
+  ordering/state reset, selector candidate evidence and unresolved-failure reporting.
+- Correct Allure reporter configuration, trace process ownership/status handling,
+  PostgreSQL 18 environment recipes and pytest coverage-context guidance.
+- Make report rewriting preserve source facts and uncertainty. Tie release readiness
+  to the actual candidate and record unknown project context without inventing facts.
+- Add pinned regression dependencies and CI gates for Python, documented JavaScript
+  helpers and Chromium fixtures. Keep the existing static-content floor separate.
+
+Eval rubric changes are recorded in the report: the humanizer now requires factual
+fidelity, consent/Allure criteria match the corrected contracts, one SQL alternation
+uses the supported grammar, and one held-out-style writing case brings the total to
+513. These are not a claim of 513 successful agent executions.
+
+## v3.0.0 (2026-06-10)
+
+### 50 skills, TDD-validated, with an executable eval runner
+
+The library grows from 43 to 50 skills, every existing skill is re-templated to a
+single house format, and evals stop being inert data — there is now a runner that
+checks them.
+
+#### +7 new skills (43 → 50)
+
+Researched via a multi-lens gap analysis and a judge panel, then built through a
+research → author → review pipeline (the review stage caught a fabricated Jest
+fake-timers claim, a 16-digit secret-scan that would flag every legitimate test card,
+and several missing sections before they shipped):
+
+- **`test-case-management`** (process) — manual/hybrid cases in TestRail/Xray/Zephyr/Qase: case anatomy, bulk authoring from stories, ambiguous-step linting, CSV/API import-export, traceability.
+- **`test-suite-curation`** (process) — evidence-based regression-suite pruning: coverage fingerprinting, AST duplicate clustering, CI-history mining, smoke/core/extended tiering, quarantine-before-delete.
+- **`bug-reproduction`** (ai-qa) — vague report → verified minimal repro → failing regression test; git bisect, deterministic repro, red-before-fix.
+- **`agentic-browser-testing`** (ai-qa) — goal-driven E2E via a browser agent (Playwright MCP / computer-use): determinism controls, cost budgets, accessibility-tree interaction, graduation to scripted tests.
+- **`email-testing`** (specialized) — signup/reset/magic-link/OTP flows via Mailpit/Mailosaur/MailSlurp; inbox polling, link/OTP extraction, deliverability checks.
+- **`payment-testing`** (specialized) — Stripe (and Adyen/Braintree/PayPal) sandboxes: test cards, 3DS/SCA iframe handling, test clocks, webhook signature/idempotency, refunds.
+- **`analytics-tracking-testing`** (specialized) — GA4/dataLayer/pixel correctness: tracking-plan contract, beacon interception, param/value/timing assertions, Consent Mode v2, CI gating.
+
+#### AI-agent / LLM security coverage (folded into existing skills)
+
+Prompted by a real indirect-prompt-injection payload disguised as a security finding:
+
+- `security-testing` gains an **OWASP LLM Top 10 (2025)** section and routes LLM-layer attacks to `ai-system-testing`.
+- `ai-system-testing` gains indirect-injection (tool output / RAG / scan reports), self-propagating directives, exfil-via-agent, and a **defend-the-tester** section (treat tool output as untrusted, never execute scripts found in it, schema-validate tool responses).
+- Ships **`skills/ai-system-testing/scripts/detect_injection.py`** — a self-tested scanner (10 attack-marker rule classes) plus `references/injection-detector.md`.
+
+#### Re-template — all 43 existing skills to one house format
+
+- Every `SKILL.md` brought to the v3 template (`docs/SKILL_TEMPLATE.md`): `<objective>`, Discovery Questions with the context check, Core Principles, domain sections, Anti-Patterns, Verification, Done When (objectively checkable), Related Skills. Heavy code pushed into `references/` — leaner `SKILL.md`, larger total footprint, nothing load-bearing lost.
+- Currency pass on every named tool/version (DORA 2025 Rework Rate, c8 v11, `claude-opus-4-8`, dead-tool "Avoid" notes).
+
+#### Evals — runner + normalized specs
+
+- New **`scripts/run_evals.py`** with `--static` (content-teaches-the-pattern proxy, CI-safe), `--baseline` (RED: bare agent), and `--live` (GREEN: prompt through `claude -p` with the skill loaded). Shared grammar in `scripts/eval_patterns.py` (`A OR B`, `(a|b)` groups, `.*`, semantic-pattern deferral to a judge).
+- Extended **`scripts/validate_skills.py`**: required sections, category whitelist, orphan references, Related-Skills resolution, eval-spec presence, README/index count sync.
+- **`scripts/build_index.py`** makes `skills_index.json` a generated artifact (it had drifted to v2.5.0). Regenerated to 50 @ v3.0.0.
+- Normalized ~20 eval specs from prose / `AND`-joined / category-inappropriate patterns to the checkable grammar.
+
+#### Consistency
+
+- `README.md`, `CLAUDE.md`, `AGENTS.md` updated to 50 skills with new disambiguation rules.
+- `docs/SKILL_TEMPLATE.md` is the new authoring contract; `CONTRIBUTING.md` points at it.
+
+## v2.6.0 (2026-05-30)
+
+### References refactor, eval coverage, cross-ref fixes, and launch
+
+A full-repo hardening pass plus the first public deployment.
+
+#### Structure — references pattern across the library
+
+- All 22 over-length skills refactored to the `playwright-automation` model: heavy code blocks moved out of `SKILL.md` into `references/*.md` (loaded on demand), keeping principles, decision prose, tables, and checklists inline. ~5,300 lines of code relocated verbatim into reference files — leaner context at skill-trigger time.
+- `SKILL.md` line cap raised 500 → 650 in `scripts/validate_skills.py`; `playwright-automation` (the reference model, 529 lines) is the only skill over 500 by design.
+
+#### Evals — 2/43 → 43/43 coverage
+
+- Added eval spec files for the 41 skills that lacked them. Each `evals/<skill>-evals.json` follows the existing `{skill, version, evals[]}` shape with 8–10 grounded cases (prompt + `expected_patterns` + `anti_patterns` + tags). 428 cases total, no cross-file duplication. (Eval execution harness is not yet built — specs are data.)
+
+#### Correctness — broken cross-references fixed
+
+- Six `Related:`/inline references pointed at skills that don't exist:
+  `self-healing-tests` → `test-reliability`, `bug-reporting` → `ai-bug-triage`, `qa-retrospective` → `quality-postmortem`.
+
+#### Security & housekeeping
+
+- Removed a committed `.wrangler/` cache (Cloudflare account ID + email — identifiers, not credentials) from the tree and gitignored it.
+- README line claim corrected (was "under 500 lines") to describe the lean-`SKILL.md` + references pattern.
+
+#### Launch
+
+- Landing page (`site/index.html`) deployed to Cloudflare Pages, live at **[qa-skills.com](https://qa-skills.com)** (apex + www).
+
+## v2.5.0 (2026-05-21)
+
+### Routing fix + new selector-drift-recovery skill
+
+Audit of the 42-skill index surfaced four overlap clusters causing wrong-skill activations: strategy/planning/risk, the AI cluster, the production trio, and the selector-maintenance gap. Fixes shipped in four tiers.
+
+#### Tier A — qa-start vs qa-project-bootstrap split
+
+- `qa-start` re-scoped to brand-new project setup only (launcher chain).
+- `qa-project-bootstrap` re-scoped to engineer onboarding to an existing codebase (30-day ramp, audit, mentorship).
+- Both descriptions carry explicit "Not for: X — use Y" anti-triggers.
+
+#### Tier B — 11 description sharpens
+
+Each affected skill now leads with what makes it distinct and names alternate skills for adjacent requests:
+
+- `test-strategy`, `test-planning`, `risk-based-testing` — scope/output clarified, run order documented (risk-based-testing runs first).
+- `ai-test-generation`, `ai-system-testing`, `ai-qa-review` — anti-triggers added to disambiguate "AI testing" requests by role: writing tests vs testing AI features vs reviewing existing tests.
+- `testing-in-production`, `synthetic-monitoring`, `observability-driven-testing` — timing-based leads (during release / continuously after / as input to new test design).
+- `playwright-automation`, `test-reliability` — cross-linked to the new `selector-drift-recovery` skill.
+- `qa-do` — repositioned as last-resort router; explicit "Do NOT use if the request clearly matches another skill."
+
+#### Tier C — New skill: `selector-drift-recovery`
+
+Bulk post-refactor selector regeneration with PR-as-output. Distinct from `test-reliability`:
+
+- `test-reliability` — runtime, one test at a time, gated heal-or-revert per attempt.
+- `selector-drift-recovery` — offline, bulk, batch, single grouped PR, event-driven by a refactor (not a flake).
+
+Six-phase workflow (snapshot old DOM → snapshot new DOM → identify broken selectors → generate role-first candidates with confidence scores → validate → ship grouped PR) plus a reference playbook with executable Playwright scripts.
+
+#### Tier D — Index updates
+
+- Added "Picking between overlapping skills" disambiguation section to AGENTS.md / CLAUDE.md.
+- Updated skill count from 42 to 43.
+- Sharpened table entries to match new frontmatter descriptions (12 entries).
+- Added `selector-drift-recovery` to the Automation section.
+
+Total: 17 file changes across 4 commits.
+
+---
+
+## v2.4.0 (2026-05-10)
+
+### 2026-05 currency pass — every skill refreshed
+
+Six-month staleness audit (cutoff 2025-11-10) across all 42 skills, applied in 14 commits across two rounds (must-fix + secondary). Net change: +1,201 / −181 lines. No new skills; existing skills track current tools, standards, and regulations.
+
+#### Factual fixes
+
+- `database-testing` — replaced fictitious `npx prisma migrate rollback --steps 1` with the supported pattern (forward-revert migration + `prisma migrate resolve` + hand-written `down.sql`).
+- `compliance-testing` — re-framed EAA as in force since 2025-06-28 (was treated as future).
+- `visual-testing` — added Lost Pixel deprecation warning (repo archived 2026-04-22).
+
+#### Standard / regulation updates
+
+- `security-testing` — rewritten for **OWASP Top 10:2025** ordering: A03 Software Supply Chain Failures (new), A10 Mishandling of Exceptional Conditions (new), SSRF folded under A01/A06, A07/A09 renamed.
+- `compliance-testing` — added **EU AI Act** phased timeline (Article 50 transparency, GPAI obligations live since 2025-08-02, prohibitions live since 2025-02-02), expanded US state-privacy list (~20 states), added **Global Privacy Control** (`Sec-GPC: 1`) and **Google Consent Mode v2** test patterns, updated CMP list (Cookiebot now Usercentrics; Google-certified CMP requirement).
+- `accessibility-testing` — EAA enforcement date corrected; ISO/IEC 40500:2025 added; WCAG 3 March 2026 draft note; axe-core 4.11+ RGAA filter caveat.
+
+#### Tool / version refreshes
+
+- **Playwright** — bumped baseline references to **1.59.1**; added Test Agents (1.56), `@playwright/mcp`, `page.screencast` (1.59), Test Migrator (1.55), `--debug=cli`; corrected `routeWebSocket` version to 1.48.
+- **k6** — added v2.0-rc1 migration callout (`experimental/websockets` → `websockets`, removed executors, exit code 97); added `k6/browser` module section; noted FID removal from web-vitals v5.
+- **Vitest** — bumped to 4.1.x (5.0-beta breaking changes flagged); added `coverage.changed` and Vitest 4 browser mode.
+- **Cypress** — 15.x baseline; dropped `experimentalRunAllSpecs`; Cypress AI Cloud add-on callout.
+- **Appium** — renamed to 3.x throughout (3.4.2 stable); Maestro added as cross-platform CLI option; Detox `by.type()` semantic matching.
+- **Pact-JS v16** rename: `PactV4` → `Pact`, `MatchersV3` → `Matchers`.
+- **Faker v10** ESM-only callout (silently breaks CJS users).
+- **Image bumps**: postgres 16 → 17, redis 7 → 8, node 20 → 22, wiremock 3.9.1 → 3.13.2, toxiproxy 2.9.0 → 2.12.0.
+- **GitHub Actions** v4 → v5+/Node 24 deprecation note in ci-cd-integration.
+
+#### AI-augmented QA — fully fleshed out
+
+- `ai-system-testing` — added concrete Tooling section naming **Promptfoo, DeepEval v3.9.9 (agentic metrics: TaskCompletion / ToolCorrectness / ArgumentCorrectness), Ragas, TruLens, Inspect AI, Garak, PyRIT, Braintrust** with one recipe per category.
+- `ai-test-generation` — added Q2a deciding between Playwright CLI+SKILLS, Playwright MCP, and hand-written; expanded reproducibility metadata (Opus 4.7 / Sonnet 4.6 / Haiku 4.5-20251001 model IDs).
+- `ai-bug-triage` — added Buy vs Build callout (Trunk Flaky Tests, CloudBees Smart Tests — formerly Launchable, Datadog Test Optimization, Sealights); model selection cost note.
+- `test-reliability` — wired Playwright 1.59 `page.screencast` "agentic video receipts" into Repair Evidence record fields.
+- `ai-qa-review` — added "AI-Generated Test Smells" subsection (hallucinated locators, fabricated imports, closed AI loops, project-convention drift).
+
+#### Vendor renames + acquisitions
+
+- Statsig → operating under OpenAI (Sept 2025); Split → Harness FME; Lightstep → ServiceNow Cloud Observability; Bugsnag → SmartBear Insight Hub; Tracetest Cloud EOL'd (Oct 2024, OSS still active); Launchable → CloudBees Smart Tests; Highlight.io → LaunchDarkly Observability; MailHog (unmaintained) → Mailpit; Promptfoo → joining OpenAI.
+
+#### New first-class sections
+
+- `qa-metrics` — DORA metrics (Lead Time, Deployment Frequency, Change Failure Rate, MTTR) and Test Impact Analysis as a metric/lever.
+- `qa-dashboard` — Allure 2 vs Allure 3 callout (TS rewrite, plugin system, `allurerc`, quality gates, Allure Service); SaaS-Native Test Dashboards comparison; Allure TestOps section with MCP server beta.
+- `coverage-analysis` — Mutation testing promoted from footnote to first-class section; pinned `c8@^11` / `nyc@^18` with Node 20+ baseline; coverage.py 7.13's `.coveragerc.toml`.
+- `release-readiness` — Vendor-native canary analysis (LaunchDarkly Guarded Rollouts, Statsig Auto-tune, Flagger, Harness CV); AI/LLM rollout pattern; canary-alerts-that-lie + Switchback anti-patterns.
+- `mobile-testing` — Maestro section as cross-platform YAML option.
+- `service-virtualization` — Mockoon, Hoverfly, Prism, MockServer comparison table.
+- `contract-testing` — Pactflow bi-directional contracts; Schemathesis property-based testing.
+- `test-data-management` — Database Branching (Supabase, Neon, PlanetScale).
+- `ci-cd-integration` — smarter sharding (knapsack-pro, CloudBees Smart Tests, Trunk); Actions Runner Controller for K8s self-hosted runners.
+- `observability-driven-testing` — continuous profiling (Pyroscope, Parca, Polar Signals, OTel profiling signal); zero-instrumentation eBPF (Beyla, Tetragon, Pixie, Coroot); OTel Weaver; Tracetest Cloud EOL warning; OTel sem-conv 1.41 GenAI breaking changes; OpenTracing deprecation.
+- `chaos-engineering` — AWS FIS, Steadybit, kube-monkey, Pumba; eBPF chaos (Chaos Mesh `bpfki`); GameDay-as-code subsection.
+- `exploratory-testing` — Assisted Exploration section paired with Bolton's "AI Productivity Paradox" warning; Tester Roles in Modern Teams (Tissue Testers, coach testers).
+
+#### Frontmatter / spec compliance
+
+- All three Foundation skills got `compatibility:` frontmatter per the agentskills.io spec.
+- Replaced fake colon-form trigger phrases (`qa:start` → `/qa-start`, `qa:do` → `/qa-do`) per Claude Code's plugin namespacing.
+- `qa-do` now consumes `$ARGUMENTS` for one-shot routing.
+- `qa-project-context` codebase-detection table refreshed (Bun, Turborepo, Astro, React Router 7, `.claude/`, `.claude-plugin/`, `AGENTS.md`).
+
+#### Strategy + Process refresh
+
+- `test-strategy` — Reference Frameworks block (CTAL-AT v2.0 — replaces CTFL-AT, CT-GenAI v1.1, HTSM v6.3, WQR 2025-26 with adoption stats); AI/LLM features row in Common Stack table.
+- `risk-based-testing` — AI/LLM-specific failure classes from CT-GenAI v1.1.
+- `test-planning` — AI-assisted authoring footnote with Productivity Paradox warning; test-smells review per CTAL-AT v2.0; LLM-eval row in estimation table.
+- `shift-left-testing` — AI-generated PR review checklist; AI participant in Three Amigos; TDD row for AI-generated implementation.
+- `quality-postmortem` — action-item-closure-rate; AI-assisted RCA principle.
+
+---
+
+## v2.3.0 (2026-03-30)
+
+### Improvements
+
+- Added `<objective>` semantic XML block to all 42 skills — replaces H1 heading with agent-facing context: why the skill is structured the way it is, when to use it vs. others, and the core approach
+- Added explicit state machine flow diagram to `risk-based-testing` `## Workflow` section (6-phase cycle with skip conditions)
+- Added `argument-hint` to `qa-do` frontmatter so agents know what input the router expects
+
+---
+
+## v2.2.0 (2026-03-29)
+
+### New skills
+
+**Foundation:**
+- `qa-start` v1.0 — Onboarding launcher: chains qa-project-context → test-strategy → test-planning in one guided sequence
+- `qa-do` v1.0 — Diagnostic router: maps a plain-language QA situation to the right 1-3 skills
+
+### Improvements
+
+- Added `## Done When` completion criteria to all 40 existing skills
+- Added team maturity callout (startup / growing / established) to test-strategy, playwright-automation, ci-cd-integration, qa-project-bootstrap
+- Added `Team Maturity` field to `.agents/qa-project-context.md` template
+- Normalized `## Output Artifacts` in ai-test-generation to `## Done When`
+
+---
+
+## v2.1.0 (2026-03-23)
+
+### New skill
+
+**Process:**
+- `qa-report-humanizer` v1.0 — Remove AI patterns from QA reports, bug reports, test summaries, and status updates
+
+---
+
+## v2.0.0 (2026-03-23)
+
+### Complete collection — 40 skills
+
+Added 25 Phase 2 skills to complete the full QA lifecycle coverage.
+
+**Strategy:**
+- `test-planning` v1.0 — Sprint/release test plans, coverage mapping, effort estimation
+- `exploratory-testing` v1.0 — SBTM charters, heuristics (HICCUPS), bug discovery patterns
+
+**Automation:**
+- `cypress-automation` v1.0 — Component + E2E testing, cy.intercept, custom commands
+- `visual-testing` v1.0 — Playwright screenshots, Chromatic, Percy, baseline management
+- `performance-testing` v1.0 — k6 load/stress/soak, Lighthouse CI, Core Web Vitals
+- `mobile-testing` v1.0 — Appium 2.0, Detox, device farms, gesture simulation
+
+**Specialized:**
+- `security-testing` v1.0 — OWASP Top 10, ZAP integration, dependency scanning
+- `cross-browser-testing` v1.0 — Analytics-driven browser matrix, BrowserStack/Sauce Labs
+- `database-testing` v1.0 — Migration testing, data integrity, query performance
+
+**AI-Augmented QA:**
+- `ai-qa-review` v1.0 — Test smell detection, testability analysis, coverage gap review
+
+**Infrastructure:**
+- `test-environments` v1.0 — Environment strategy, Docker Compose, parity checklist
+- `contract-testing` v1.0 — Pact.js consumer-driven contracts, can-i-deploy
+- `service-virtualization` v1.0 — Decision framework for mocks, stubs, fakes, WireMock, MSW
+
+**Metrics:**
+- `qa-dashboard` v1.0 — Allure, Grafana, ReportPortal setup and stakeholder reports
+- `coverage-analysis` v1.0 — Gap analysis, coverage-as-ratchet, meaningful vs vanity
+
+**Process:**
+- `shift-left-testing` v1.0 — Dev/QA pairing, TDD, PR review checklists, maturity model
+- `qa-project-bootstrap` v1.0 — First 30 days, test architecture audit, onboarding
+- `quality-postmortem` v1.0 — Bug pattern analysis, 5 Whys, postmortem templates
+- `compliance-testing` v1.0 — GDPR/CMP, Better Ads, cookie compliance
+
+**Production & Observability:**
+- `testing-in-production` v1.0 — Feature flags, canary analysis, guardrail metrics
+- `synthetic-monitoring` v1.0 — Post-deploy validation, SLA monitoring, multi-region
+- `observability-driven-testing` v1.0 — Traces as test evidence, log-informed test design
+
+**Knowledge & Migration:**
+- `ai-system-testing` v1.0 — LLM/prompt testing, evals, hallucination risk, nondeterminism
+- `chaos-engineering` v1.0 — Fault injection, game days, resilience validation
+- `test-migration` v1.0 — Framework migration guides, parallel running, incremental adoption
+
+---
+
+## v1.0.0 (2026-03-23)
+
+### Initial Release — 14 Phase 1 Skills
+
+**Foundation:**
+- `qa-project-context` v1.0 — Universal project context template
+
+**Strategy:**
+- `test-strategy` v1.0 — Full QA strategy creation with risk-based prioritization
+- `risk-based-testing` v1.0 — Risk assessment matrices, priority-based test selection
+
+**Automation:**
+- `playwright-automation` v1.0 — Playwright E2E testing with POM, fixtures, CI integration
+- `api-testing` v1.0 — REST/GraphQL testing with schema validation
+- `unit-testing` v1.0 — Jest/Vitest/pytest patterns with mocking and coverage
+
+**AI-Augmented QA:**
+- `ai-test-generation` v1.0 — LLM-powered test generation from specs and PRDs
+- `ai-bug-triage` v1.0 — Auto-classify bugs by severity/component/root-cause, CI failure analysis
+- `test-reliability` v1.0 — Locator resilience, flaky test detection and quarantine
+
+**Infrastructure:**
+- `ci-cd-integration` v1.0 — GitHub Actions/GitLab CI pipeline templates
+- `test-data-management` v1.0 — Test data strategies, factories, fixtures, synthetic data
+
+**Specialized:**
+- `accessibility-testing` v1.0 — WCAG 2.1 compliance, axe-core integration, screen reader testing
+
+**Process:**
+- `release-readiness` v1.0 — Go/no-go checklists, smoke tests, staged rollouts
+
+**Metrics:**
+- `qa-metrics` v1.0 — Essential QA metrics with formulas and dashboards
