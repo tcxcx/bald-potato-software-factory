@@ -2,7 +2,7 @@
 
 Portable multi-agent installer for **Antigravity (`agy`)** 🚀, **Claude Code** 🤖, **Codex** 💻, **Cursor** ⚡, **OpenCode** 🛠️, and any Agentic Development Environment (ADE) 🌐.
 
-Bundles **493 skills** 📚, **4 Antigravity plugins** 🔌, **always-on rules (`AGENTS.md` and `CLAUDE.md`)** 📜, and the `--bald-potato-degen-mode` CLI wrapper 🔥 into one repository.
+Bundles **494 skills** 📚, **4 Antigravity plugins** 🔌, **always-on rules (`AGENTS.md` and `CLAUDE.md`)** 📜, and the `--bald-potato-degen-mode` CLI wrapper 🔥 into one repository.
 
 ## ⚡ Quick start
 
@@ -17,21 +17,21 @@ cd bald-potato-software-factory
 ## 🛠️ What `./install.sh` configures
 
 1. 🚀 **Antigravity (`~/.gemini/config/plugins/` and `~/.gemini/config/skills/`)**
-   - 🥔 `pstack` (`poteto-mode`, 61 skills, `poteto-agent`, `comment-sicko`, always-on `AGENTS.md` rule)
+   - 🥔 `pstack` (`poteto-mode`, 62 skills, `poteto-agent`, `comment-sicko`, always-on `AGENTS.md` rule)
    - 🧑‍🦲 `mattpocock-skills` (`4ae2317`, 44 skills including `bald-potato` and `bald-potato-degen-mode`, `bald-potato` agent, `SessionStart` preload hook, always-on `AGENTS.md` rule)
    - 🛡️ `security-audit-skill` (Cloudflare `security-audit` skill and boundary-first `AGENTS.md` rule)
    - 🧰 `bald-potato-arsenal` (389 domain, motion, design, Vercel, video, cloud, behavioral, and marketing skills plus `AGENTS.md` index rule)
    - 🔥 Wraps `agy` so bare `agy`, `agy --bald-potato`, and `agy --bald-potato-degen-mode` always launch with `--dangerously-skip-permissions` and preload all four plugins.
 2. 🤖 **Claude Code (`~/.claude/skills/` and `~/.claude/CLAUDE.md`)**
-   - Installs all 493 skills and the combined Bald Potato Software Factory instructions.
+   - Installs all 494 skills and the combined Bald Potato Software Factory instructions.
 3. 💻 **Codex (`~/.codex/skills/` and `~/.codex/AGENTS.md`)**
-   - Installs all 493 skills and the combined `AGENTS.md` instructions.
+   - Installs all 494 skills and the combined `AGENTS.md` instructions.
 4. 🌐 **Universal ADE paths (`~/.agents/skills/`, `~/.cursor/skills/`, `~/.config/opencode/skills/`, `~/skills/`)**
    - Syncs the full skill catalog for Cursor, OpenCode, Windsurf, Gemini CLI, and workspace discovery.
 
 ## 📦 Included skill suites
 
-- 🥔 **Poteto Stack (`cursor/plugins/pstack`)**: `poteto-mode`, `architect`, `arena`, `swarm`, `interrogate`, `figure-it-out`, `show-me-your-work`, `blast-radius`, `statechart`, `unslop`, `technical-writing`, `no-comments`, and 22 engineering principles.
+- 🥔 **Poteto Stack (`cursor/plugins/pstack`)**: `poteto-mode`, [`tiger-mode`](plugins/pstack/skills/tiger-mode/SKILL.md), `architect`, `arena`, `swarm`, `interrogate`, `figure-it-out`, `show-me-your-work`, `blast-radius`, `statechart`, `unslop`, `technical-writing`, `no-comments`, and 22 engineering principles.
 - 🧑‍🦲 **Matt Pocock Software Factory (`mattpocock/skills@4ae2317`)**: `software-factory`, `grill-me`, `grill-with-docs`, `domain-modeling`, `codebase-design`, `to-spec`, `to-tickets`, `implement-spec`, `tdd`, `code-review`, `diagnosing-bugs`, `wayfinder`, `retro`.
 - 🛡️ **Cloudflare Security Audit (`cloudflare/security-audit-skill`)**: `security-audit` with 6-phase reconnaissance, hunting, and validation scripts.
 - 🧠 **Behavioral & Strategic Analysis (`tcxcx`)**: `bucket-analysis`, `bucket-analysis-es`, `gateman-analysis`, `gateman-analysis-es`, `schiller-behavioral`, `cyber-kantics`.
